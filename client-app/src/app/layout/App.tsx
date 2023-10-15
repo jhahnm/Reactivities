@@ -2,6 +2,7 @@ import {Fragment, useEffect, useState} from "react";
 
 function App() {
     const [activities, setActivities] = useState<Activity[]>([]);
+    const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined)
     useEffect(() => {
        axios.get<Activity[]>('http://localhost:5000/api/Activities')
            .then(response => {
@@ -9,11 +10,23 @@ function App() {
            })
     }, []);
     
+    function handleSelectActivity(id: string) {
+        setSelectedActivity(activities.find(act => act.id === id));
+    }
+    function handleCancelSelectActivity() {
+        setSelectedActivity(undefined);
+    }
+    
   return (
     <Fragment>
         <NavBar />
         <Container style={{marginTop: "7em"}}>
-            <ActivityDashboard activities={activities}/>
+            <ActivityDashboard 
+                activities={activities}
+                selectedActivity={selectedActivity}
+                selectActivity={handleSelectActivity}
+                cancelSelectActivity={handleCancelSelectActivity}
+            />
         </Container>
     </Fragment>
   )
