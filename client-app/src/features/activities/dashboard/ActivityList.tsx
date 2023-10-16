@@ -17,6 +17,7 @@ export default function ActivityList({activities, selectActivity, deleteActivity
                         <Item.Content>
                             <Item.Header as='a'>{activity.title}</Item.Header>
                             <Item.Description>
+                                <div>{activity.date}</div>
                                 <div>{activity.description}</div>
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>

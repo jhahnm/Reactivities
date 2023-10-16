@@ -13,7 +13,10 @@ function App() {
     
     useEffect(() => {
         agent.Activities.list().then(response => {
-            setActivities(response);
+            setActivities(response.map(a => { 
+                a.date = a.date.split('T')[0];
+                return a;
+            }));
         })
     }, []);
     
