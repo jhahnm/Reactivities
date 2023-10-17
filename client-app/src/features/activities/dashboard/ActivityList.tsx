@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 
 export default observer(function ActivityList(){
     const {activityStore} = useStore();
-    const {activities, selectActivity, deleteActivity, loading} = activityStore;
+    const {activitiesByDate: activities, selectActivity, deleteActivity, loading} = activityStore;
     
     const [target, setTarget] = useState('');
     function handleActivityDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
