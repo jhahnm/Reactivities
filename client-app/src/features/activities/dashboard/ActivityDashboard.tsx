@@ -7,10 +7,19 @@ import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 export default observer(function ActivityDashboard() {
     const {activityStore} = useStore();
+    const {loadActivities, activityRegistery} = activityStore;
 
     useEffect(() => {
-        activityStore.loadActivities();
-    }, [activityStore]);
+        /**
+         * Temporary work around as having only one element could mean that user navigated
+         * directly to the component, so when the user clicks cancel or return it loads the whole set
+         * of activities.
+         */
+        
+        if(activityRegistery.size <= 1) {
+            loadActivities();
+        }
+    }, [loadActivities, activityRegistery.size]);
 
     if (activityStore.loadingInitial) return <LoadingComponent content='Loading App'/>
     
