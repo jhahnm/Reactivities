@@ -8,7 +8,7 @@ export default class ActivityStore {
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial = true;
+    loadingInitial = false;
     
     constructor() {
         makeAutoObservable(this)
@@ -37,6 +37,7 @@ export default class ActivityStore {
         let activity = this.getActivity(id);
         if(activity) {
             this.selectedActivity = activity;
+            return activity;
         } else {
             this.setLoadingInitial(true);
             try {
@@ -46,6 +47,7 @@ export default class ActivityStore {
                 });
                 this.setActivity(activity);
                 this.setLoadingInitial(false);
+                return activity;
             } catch (e) {
                 console.error(e);
                 this.loading = false;
