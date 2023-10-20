@@ -13,9 +13,18 @@ axios.interceptors.response.use(async response => {
     await sleep(1000);
     return response;
 }, (error: AxiosError) => {
-    const {data, status} = error.response!;
+    const {data, status} = error.response as AxiosResponse;
     switch (status) {
         case 400:
+            if (data.errors) {
+                const modalStateErrors = [];
+                Object.values(data.errors).forEach((value) => {
+                    modalStateErrors.push(value);
+                });
+                throw modalStateErrors.flat();
+            } else {
+                toast.error(data);
+            }
             toast.error('Bad request');
             break;
         case 401:
