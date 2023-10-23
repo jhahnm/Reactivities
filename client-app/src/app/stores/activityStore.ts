@@ -98,6 +98,7 @@ export default class ActivityStore {
     updateActivity = async (activity: Activity) => {
         this.loading = true;
         try {
+            activity.date = new Date(activity.date!);
             await agent.Activities.update(activity);
             runInAction(() => {
                 this.activityRegistery.set(activity.id, activity);
