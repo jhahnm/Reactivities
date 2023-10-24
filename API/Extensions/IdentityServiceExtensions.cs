@@ -1,3 +1,4 @@
+using API.Services;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Persistence;
@@ -14,6 +15,7 @@ public static class IdentityServiceExtensions
             ops.Password.RequireNonAlphanumeric = false;
         }).AddEntityFrameworkStores<DataContext>();
         services.AddAuthentication();
+        services.AddScoped<TokenService>();
         return services;
     }
 }
