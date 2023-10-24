@@ -18,7 +18,7 @@ public static class IdentityServiceExtensions
             ops.Password.RequireNonAlphanumeric = false;
         }).AddEntityFrameworkStores<DataContext>();
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes("aK2pLtBwLc5wK9vFKrLX6syOlBlreP4qOJZHhFxHUu8Gt5sz33OfdFaQYuMfcQ59"));
+            Encoding.UTF8.GetBytes(config["TokenKey"]));
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
         {
             opt.TokenValidationParameters = new TokenValidationParameters
